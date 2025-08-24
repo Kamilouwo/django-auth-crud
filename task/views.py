@@ -37,12 +37,14 @@ def signup(request):
 @login_required
 def tasks(request):
     tasks = Task.objects.filter(user=request.user, datecompleted__isnull=True)
-    return render(request, 'tasks.html', {'tasks': tasks})
+    task_type = 'Pending'
+    return render(request, 'tasks.html', {'tasks': tasks, 'task_type': task_type})
 
 @login_required
 def tasks_completed(request):
     tasks = Task.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
-    return render(request, 'tasks.html', {'tasks': tasks})
+    task_type = 'Complete'
+    return render(request, 'tasks.html', {'tasks': tasks, 'task_type': task_type})
 
 @login_required
 def create_task(request):
