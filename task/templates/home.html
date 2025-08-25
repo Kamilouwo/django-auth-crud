@@ -3,15 +3,14 @@
 {% block content %}
 
 <main class="container py-5">
-    <section class="card card-body">
-        <h2 class="display-1 text-center">Django App</h2>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae dicta voluptas fugiat repellat quos illo amet vel soluta, incidunt necessitatibus dolore dolorum magnam. Illum modi alias sunt, expedita a ut molestias at eum ipsa impedit totam, aspernatur perspiciatis culpa maxime magni minus necessitatibus, dolores ab officiis corrupti reprehenderit. Quos in ullam nisi itaque impedit aspernatur maiores laudantium aliquid provident expedita. Sit dolorum nostrum aspernatur eum illum consequuntur assumenda ut expedita quisquam. Et earum delectus impedit cum voluptates ratione. Asperiores consequatur dolorem quasi molestiae soluta repellendus exercitationem, esse enim perspiciatis optio ipsum recusandae vero natus officia eveniet beatae delectus animi harum?</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum non enim quod, aut, voluptatum similique corporis aliquam et aperiam adipisci facilis autem debitis voluptas, voluptatem reprehenderit odit laboriosam laborum ipsam!</p>
+    <section class="card card-body bg-dark">
+        <h1 class="display-1 text-center">Inicio</h1>
+        {% if not user.is_authenticated %}
         <div class="text-center">
-            <a class="btn btn-secondary" href="/signin/">Signin</a>
-            <a class="btn btn-dark" href="/signup/">Signup</a>
+            <a class="btn btn-secondary" href="/signin">Iniciar sección</a>
+            <a class="btn btn-light" href="/signup">Crear cuenta</a>
         </div>
-
+        {% endif %}
     </section>
 </main>
 

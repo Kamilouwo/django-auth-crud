@@ -36,14 +36,14 @@ def signup(request):
 
 @login_required
 def tasks(request):
-    tasks = Task.objects.filter(user=request.user, datecompleted__isnull=True)
-    task_type = 'Pending'
+    tasks = Task.objects.filter(user=request.user, fechacompletado__isnull=True)
+    task_type = 'pendientes'
     return render(request, 'tasks.html', {'tasks': tasks, 'task_type': task_type})
 
 @login_required
 def tasks_completed(request):
-    tasks = Task.objects.filter(user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
-    task_type = 'Complete'
+    tasks = Task.objects.filter(user=request.user, fechacompletado__isnull=False).order_by('-fechacompletado')
+    task_type = 'completadas'
     return render(request, 'tasks.html', {'tasks': tasks, 'task_type': task_type})
 
 @login_required
@@ -85,7 +85,7 @@ def task_detail(request, task_id):
 def complete_task(request, task_id):
     task = get_object_or_404(Task, pk=task_id, user=request.user)
     if request.method == 'POST':
-        task.datecompleted = timezone.now()
+        task.fechacompletado = timezone.now()
         task.save()
         return redirect('tasks')
 
