@@ -7,7 +7,7 @@
         <div class="col-md-4 offset-md-4 mt-5">
             <form method="POST" class="card card-body bg-dark text-light">
                 <h2 class="text-secondary">{{task.title}}</h2>
-                {{error}}
+                <p class="text-danger">{{error}}</p>
                 {% csrf_token %}
                 {{form.as_p}}
                 <button class="btn btn-primary">Actualizar</button>

@@ -7,7 +7,7 @@
         <section class="col-md-4 offset-md-4 mt-5">
             <form method="POST" class="card card-body bg-dark text-light">
                 <h1 class="text-center">Iniciar sección</h1>
-                {{error}}
+                <p class="text-danger text-center">{{error}}</p>
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="username">Usuario:</label>

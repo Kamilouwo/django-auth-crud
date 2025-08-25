@@ -6,7 +6,7 @@
         <div class="col-md-4 offset-md-4 mt-5">
             <form action="/tasks/create/" method="POST" class="card card-body bg-dark text-light">
                 <h1>Crear tarea</h1>
-                {{error}}
+                <p class="text-danger">{{error}}</p>
                 {% csrf_token %}
                 {{form.as_p}}
                 <button class="btn btn-primary">

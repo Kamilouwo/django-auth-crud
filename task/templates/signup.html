@@ -6,7 +6,16 @@
         <div class="col-md-4 offset-md-4 mt-5">
             <form method="POST" class="card card-body bg-dark text-light">
                 <h1 class="text-center">Crear cuenta</h1>
-                {{error}}
+                <p class="text-danger text-center">
+                    {% if error %}
+                <div class="text-danger">
+                    {% for e in error %}
+                    <p>{{ e }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                </p>
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="username">Usuario:</label>

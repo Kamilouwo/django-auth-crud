@@ -7,32 +7,47 @@ from .forms import TaskForm
 from .models import Task
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 
 def home(request):
     return render(request, 'home.html')
 
 def signup(request):
-
-    if request.method == 'GET':
-        return render(request, 'signup.html', {
-        'form': UserCreationForm
-    })
-    else:
+    if request.method == 'POST':
         if request.POST['password1'] == request.POST['password2']:
             try:
-                user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
+                # 🔹 Validar contraseña antes de crear el usuario
+                try:
+                    validate_password(request.POST['password1'])
+                except ValidationError as e:
+                    return render(request, 'signup.html', {
+                        'form': UserCreationForm(),
+                        'error': e.messages  # lista de errores de contraseña
+                    })
+
+                user = User.objects.create_user(
+                    username=request.POST['username'],
+                    password=request.POST['password1']
+                )
                 user.save()
                 login(request, user)
                 return redirect('tasks')
             except IntegrityError:
                 return render(request, 'signup.html', {
-                    'form': UserCreationForm,
+                    'form': UserCreationForm(),
                     "error": "Usuario ya registrado",
-                    })
-        return render(request, 'signup.html', {
-            'form': UserCreationForm,
-            "error": "La contraseña no coincide",
+                })
+        else:
+            return render(request, 'signup.html', {
+                'form': UserCreationForm(),
+                "error": "Las contraseñas no coinciden",
             })
+    else:
+        return render(request, 'signup.html', {
+            'form': UserCreationForm()
+        })
+
 
 @login_required
 def tasks(request):
